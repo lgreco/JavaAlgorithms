@@ -47,8 +47,20 @@ public class SimpleGraph {
         return G;
     } // method convertList2Matrix
 
+    /** COMPLETE THIS METHOD */
+    static int countComponents(int[][] G) {
+        return -1;
+    } // method countComponents
+
+    /** COMPLETE THIS METHOD */
+    static ArrayList<Integer> findReachableFrom(int s, int[][] G) {
+        return null;
+    } // method reachableFrom
+
+    /** Driver code */
     public static void main(String[] args) {
 
+        // Infinity
         int __ = Integer.MAX_VALUE;
 
         // Populate a demo adjacency matrix
@@ -84,6 +96,19 @@ public class SimpleGraph {
         // Neighbors for vertex 4: 0, 3
         L.get(4).add(0);
         L.get(4).add(3);
+
+        // The 8x8 adjacency matrix for testing the assignment
+
+        int[][] G8 = {
+                { __, 1, 1, __, __, __, __, __ },
+                { 1, __, __, 1, 1, __, __, __ },
+                { __, __, __, __, 1, __, __, __ },
+                { __, 1, __, __, 1, __, __, __ },
+                { __, 1, 1, 1, __, __, __, __ },
+                { __, __, __, __, __, __, __, __ },
+                { __, __, __, __, __, __, __, 1 },
+                { __, __, __, __, __, __, 1, __ }
+        };
     } // method main
 
 } // class SimpleGraph
