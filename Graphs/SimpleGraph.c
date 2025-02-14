@@ -5,7 +5,7 @@
 #define NO_EDGE INT_MAX
 
 // Convert adjacency matrix to adjacency list; method is void;
-// List is "returned" by reference to array of points ***L
+// List is "returned" by reference to array of pointers ***L
 void convertMatrix2List(int **G, int n, int ***L, int **listSizes) {
     *L = (int **)malloc(n * sizeof(int *));
     *listSizes = (int *)calloc(n, sizeof(int));
