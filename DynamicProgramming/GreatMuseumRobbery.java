@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GreatMuseumRobbery {
@@ -10,7 +11,7 @@ public class GreatMuseumRobbery {
 
         // Initialize the scenario table S
         int n = v.length;
-        int[][] S = new int[n+1][cMax+1];
+        int[][] S = new int[n + 1][cMax + 1];
 
         // S[0][...] is trivial = 0 ... nothing to take
         // S[...][0] is trivial = 0 ... no capacity to take
@@ -33,10 +34,23 @@ public class GreatMuseumRobbery {
         return S;
     } // method valueOfGreatMuseumRobbery
 
+    public static ArrayList<Integer> findBestSubset(int[][] S, int[] v, int[] w) {
+        ArrayList<Integer> subset = new ArrayList<>();
+        int n = S.length - 1;
+        int r = S[0].length - 1;
+        for (int i = n; i > -1; i--) {
+            if (S[i][r] == S[i-1][r-w[i-1]] + v[i-1]) {
+                subset.add(i);
+                r -= w[i-1];
+            }
+        }
+        return subset;
+    }
+
     public static void main(String[] args) {
         // Simple test: the problem discussed in classs
-        //          0   1   2   3  4  5
-        //          A   B   C   D  E   F
+        // 0 1 2 3 4 5
+        // A B C D E F
         int[] v = { 5, 11, 10, 20, 6, 15 };
         int[] w = { 1, 5, 4, 10, 1, 4 };
         int cMax = 12;
