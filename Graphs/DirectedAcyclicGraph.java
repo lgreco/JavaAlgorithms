@@ -1,9 +1,7 @@
 public class DirectedAcyclicGraph {
 
     public static void main(String[] args) {
-
         int __ = Integer.MAX_VALUE;
-
         int[][] G = {
                 { __, __, __, 2, 20, __ },
                 { __, __, __, __, __, 2 },
