@@ -86,6 +86,50 @@ void freeList(int **L, int *listSizes, int n) {
     free(listSizes);
 } // freeList
 
+// Depth-First Search to mark reachable vertices
+void dfs(int v, int **G, int n, int *visited) {
+    visited[v] = 1;
+    for (int i = 0; i < n; i++) {
+        if (G[v][i] != NO_EDGE && visited[i] == 0) {
+            dfs(i, G, n, visited);
+        }
+    }
+}
+
+// Find all reachable vertices from s
+void find_reachable_from(int s, int **G, int n) {
+    int *visited = (int *)calloc(n, sizeof(int));
+    
+    dfs(s, G, n, visited);
+
+    printf("Vertices reachable from %d: ", s);
+    for (int i = 0; i < n; i++) {
+        if (visited[i]) {
+            printf("%d ", i);
+        }
+    }
+    printf("\n");
+
+    free(visited);
+}
+
+// Count number of components in the graph
+int count_components(int **G, int n) {
+    int *visited = (int *)calloc(n, sizeof(int));
+    int count = 0;
+
+    for (int i = 0; i < n; i++) {
+        if (visited[i] == 0) {
+            dfs(i, G, n, visited);
+            count++;
+        }
+    }
+
+    free(visited);
+    return count;
+}
+
+
 int main() {
     int n = 5;
     int G_data[5][5] = {
@@ -116,10 +160,15 @@ int main() {
     
     printf("\nReconstructed Adjacency Matrix:\n");
     printMatrix(G_new, n);
-    
+
+    // Test the new functions
+    printf("\n");
+    find_reachable_from(0, G, n);
+    printf("Number of connected components: %d\n", count_components(G, n));
+
     freeMatrix(G, n);
     freeMatrix(G_new, n);
     freeList(L, listSizes, n);
     
     return 0;
-} // main
+}
