@@ -163,6 +163,15 @@ public class MinimumSpanningTree {
     } // method main
 
     static void printArray(int[][] array) {
+        int weight = 0;
+        for (int i = 0; i < array.length; i++) {
+            for (int j = i+1; j < array.length; j++) {
+                if (array[i][j] != array[0][0]) {
+                    weight += array[i][j];
+                }
+            }
+        }
+        System.out.printf("total weight=%d\n", weight);
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array.length; j++) {
                 String element = "\u221E";
