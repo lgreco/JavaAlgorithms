@@ -34,8 +34,10 @@ public class MinimumSpanningTree {
         int b;
     } // inner class SafeEdge
 
+    // Shortcut to infinity
     static int __ = Integer.MAX_VALUE;
 
+    // Demo input
     static int[][] G = {
             { __, __, __, 5, 1, __ },
             { __, __, 20, 5, __, 10 },
@@ -103,8 +105,10 @@ public class MinimumSpanningTree {
                         // Process comp[u]
                         if (safeEdges[comp[u]] == null) {
                             // No safe edge for this component; accept (u,v) as the safe edge
-                            safeEdges[comp[u]].a = u;
-                            safeEdges[comp[u]].b = v;
+                            SafeEdge newEdge = new SafeEdge();
+                            newEdge.a = u;
+                            newEdge.b = v;
+                            safeEdges[comp[u]] = newEdge;
                         } else {
                             // if edge (u,v) is smaller than existing safe edge, accept (u,v)
                             int a = safeEdges[comp[u]].a;
@@ -117,8 +121,10 @@ public class MinimumSpanningTree {
                         // Process comp[v]
                         if (safeEdges[comp[v]] == null) {
                             // No safe edge for this component; accept (u,v) as the safe edge
-                            safeEdges[comp[v]].a = v;
-                            safeEdges[comp[v]].b = u;
+                            SafeEdge newEdge = new SafeEdge();
+                            newEdge.a = u;
+                            newEdge.b = v;
+                            safeEdges[comp[v]] = newEdge;
                         } else {
                             // if edge (u,v) is smaller than existing safe edge, accept (u,v)
                             int a = safeEdges[comp[v]].a;
@@ -149,4 +155,25 @@ public class MinimumSpanningTree {
         // Principal loop ended and T has one component.
         return T;
     } // method boruvka
+
+    // Driver code
+    public static void main(String[] args) {
+        int[][] T = boruvka(G);
+        printArray(T);
+    } // method main
+
+    static void printArray(int[][] array) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length; j++) {
+                String element = "\u221E";
+                if (array[i][j] != array[0][0]) {
+                    element = String.valueOf(array[i][j]);
+                }
+                System.out.printf("%4s", element);
+            }
+            System.out.println();
+        }
+    } // method printArray
+
+
 } // class MinimumSpanningTree
