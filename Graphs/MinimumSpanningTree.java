@@ -47,6 +47,15 @@ public class MinimumSpanningTree {
             { __, 10, __, 15, 20, __ }
     };
 
+    /**
+     * Counts the components of an input graph and labels each vertex by its
+     * component number.
+     * 
+     * @param graph int[][] adjacency matrix of the graph
+     * @return an object that contains the int count of the components in the input
+     *         graph and the int[] with the component labels for each vertex in the
+     *         graph
+     */
     public static CountLabels countAndLabel(int[][] graph) {
         int n = graph.length;
         CountLabels countAndLabels = new CountLabels(n);
@@ -76,6 +85,7 @@ public class MinimumSpanningTree {
 
     /**
      * Basic implementation of Borůvka
+     * 
      * @param G int[][] adjacency matrix of the input graph
      * @return int[][] with the MST of G
      */
@@ -171,7 +181,7 @@ public class MinimumSpanningTree {
     static void printArray(int[][] array) {
         int weight = 0;
         for (int i = 0; i < array.length; i++) {
-            for (int j = i+1; j < array.length; j++) {
+            for (int j = i + 1; j < array.length; j++) {
                 if (array[i][j] != array[0][0]) {
                     weight += array[i][j];
                 }
@@ -189,6 +199,5 @@ public class MinimumSpanningTree {
             System.out.println();
         }
     } // method printArray
-
 
 } // class MinimumSpanningTree
