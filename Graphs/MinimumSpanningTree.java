@@ -74,6 +74,11 @@ public class MinimumSpanningTree {
         return countAndLabels;
     } // method countAndLabel
 
+    /**
+     * Basic implementation of Borůvka
+     * @param G int[][] adjacency matrix of the input graph
+     * @return int[][] with the MST of G
+     */
     public static int[][] boruvka(int[][] G) {
         int NO_EDGE = G[0][0];
         int n = G.length;
@@ -162,6 +167,7 @@ public class MinimumSpanningTree {
         printArray(T);
     } // method main
 
+    /** Formatted print of an adjacency matrix */
     static void printArray(int[][] array) {
         int weight = 0;
         for (int i = 0; i < array.length; i++) {
