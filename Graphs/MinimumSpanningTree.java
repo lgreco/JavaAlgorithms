@@ -17,7 +17,7 @@ public class MinimumSpanningTree {
         }
 
         public void setComponent(int vertex, int component) {
-            this.comp[vertex] = comp;
+            this.comp[vertex] = component;
         }
 
         public int getCount() {
@@ -28,6 +28,11 @@ public class MinimumSpanningTree {
             return comp;
         }
     } // inner class CountAndLabel
+
+    static class SafeEdge {
+        int a;
+        int b;
+    } // inner class SafeEdge
 
     static int __ = Integer.MAX_VALUE;
 
@@ -65,19 +70,83 @@ public class MinimumSpanningTree {
             }
         }
         return countAndLabels;
-    }
+    } // method countAndLabel
 
-    public static void boruvka(int[][] G) {
+    public static int[][] boruvka(int[][] G) {
         int NO_EDGE = G[0][0];
         int n = G.length;
 
         // Initialize candidate tree T
+        int[][] T = new int[n][n];
         for (int u = 0; u < n; u++) {
             for (int v = 0; v < n; v++) {
                 T[u][v] = NO_EDGE;
             }
         }
 
+        // Obtain count and component labels
+        CountLabels countLabels = countAndLabel(T);
+        // Unpack the object countLabels
+        int count = countLabels.getCount();
+        int[] comp = countLabels.getComp();
 
-    }
-}
+        // Principal loop
+        while (count > 1) {
+
+            // Prepare array with safe edges for each component
+            SafeEdge[] safeEdges = new SafeEdge[count + 1];
+
+            // Consider all edges in different components
+            for (int u = 0; u < n; u++) {
+                for (int v = 0; v < n; v++) {
+                    if (G[u][v] != NO_EDGE && comp[u] != comp[v]) {
+                        // Process comp[u]
+                        if (safeEdges[comp[u]] == null) {
+                            // No safe edge for this component; accept (u,v) as the safe edge
+                            safeEdges[comp[u]].a = u;
+                            safeEdges[comp[u]].b = v;
+                        } else {
+                            // if edge (u,v) is smaller than existing safe edge, accept (u,v)
+                            int a = safeEdges[comp[u]].a;
+                            int b = safeEdges[comp[u]].b;
+                            if (G[u][v] < G[a][b]) {
+                                safeEdges[comp[u]].a = u;
+                                safeEdges[comp[u]].b = v;
+                            }
+                        }
+                        // Process comp[v]
+                        if (safeEdges[comp[v]] == null) {
+                            // No safe edge for this component; accept (u,v) as the safe edge
+                            safeEdges[comp[v]].a = v;
+                            safeEdges[comp[v]].b = u;
+                        } else {
+                            // if edge (u,v) is smaller than existing safe edge, accept (u,v)
+                            int a = safeEdges[comp[v]].a;
+                            int b = safeEdges[comp[v]].b;
+                            if (G[v][u] < G[a][b]) {
+                                safeEdges[comp[u]].a = v;
+                                safeEdges[comp[u]].b = u;
+                            }
+                        }
+                    }
+                }
+            } // end consider all edges
+
+            // Add safe edges to T
+            for (int t = 1; t < count + 1; t++) {
+                int a = safeEdges[t].a;
+                int b = safeEdges[t].b;
+                T[a][b] = G[a][b];
+                T[b][a] = G[b][a];
+            }
+
+            // Obtain new count and component labels
+            countLabels = countAndLabel(T);
+            // Unpack the object countLabels
+            count = countLabels.getCount();
+            comp = countLabels.getComp();
+        }
+        // Principal loop ended and T has one component.
+        return T;
+    } // method boruvka
+} // class MinimumSpanningTree
