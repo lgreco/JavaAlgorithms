@@ -32,7 +32,7 @@ public class DirectedAcyclicGraph {
             pred = new int[n];
             for (int i = 0; i < n; i++) {
                 pred[i] = -1;
-                dist[i] = INFINITY;
+                dist[i] = Integer.MAX_VALUE;
             }
             dist[s] = 0;
         } // constructor
