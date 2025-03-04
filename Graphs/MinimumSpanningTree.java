@@ -3,6 +3,7 @@ import java.util.List;
 
 public class MinimumSpanningTree {
 
+    /** Container for component count and component labels for a graph */
     static class CountLabels {
         int count;
         int[] comp;
@@ -29,6 +30,7 @@ public class MinimumSpanningTree {
         }
     } // inner class CountAndLabel
 
+    /** Basic edge object */
     static class SafeEdge {
         int a;
         int b;
