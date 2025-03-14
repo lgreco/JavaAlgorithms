@@ -15,7 +15,17 @@ import java.math.RoundingMode;
  * 
  */
 public class PiChudnovskySingleThread {
-    private static final int DIGITS = 1000; // Number of digits of π to compute
+    // Number of digits of π to compute
+    private static final int DIGITS = 1000;
+    /*
+     * Precision and rounding mode setting for BigDecimal arithmetic operations.
+     * precision: The total number of significant digits to use in calculations.
+     * roundingMode: Specifies how to round numbers when precision is exceeded.
+     * 
+     * Rounding mode of choice: RoundingMode.HALF_EVEN (bankers' rounding), rounds
+     * to the nearest neighbor, choosing the even number in case of a tie.
+     * 
+     */
     private static final MathContext MC = new MathContext(DIGITS + 10, RoundingMode.HALF_EVEN);
 
     // Precompute C = 426880 * sqrt(10005), the constant that scales the series
